@@ -118,7 +118,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#if !defined(OPENSSL_SYSNAME_WIN32) && !defined(NETWARE_CLIB)
+#if !defined(OPENSSL_SYSNAME_WIN32) && !defined(OPENSSL_WINAPP) && !defined(NETWARE_CLIB)
 #include <strings.h>
 #endif
 #include <sys/types.h>
@@ -2836,7 +2836,7 @@ double app_tminterval(int stop,int usertime)
 	double			ret=0;
 	static ULARGE_INTEGER	tmstart;
 	static int		warning=1;
-#ifdef _WIN32_WINNT
+#if defined(_WIN32_WINNT) && !defined(OPENSSL_WINAPP)
 	static HANDLE		proc=NULL;
 
 	if (proc==NULL)
@@ -3028,7 +3028,6 @@ int app_isdir(const char *name)
 
 	if (len_0 > sizeof(FileData.cFileName)/sizeof(FileData.cFileName[0]))
 		return -1;
-
 #if !defined(_WIN32_WCE) || _WIN32_WCE>=101
 	if (!MultiByteToWideChar(CP_ACP,0,name,len_0,FileData.cFileName,len_0))
 #endif
@@ -3067,7 +3066,7 @@ int app_isdir(const char *name)
 #endif
 
 /* raw_read|write section */
-#if defined(_WIN32) && defined(STD_INPUT_HANDLE)
+#if defined(_WIN32) && defined(STD_INPUT_HANDLE) && !defined(OPENSSL_WINAPP)
 int raw_read_stdin(void *buf,int siz)
 	{
 	DWORD n;
@@ -3080,7 +3079,7 @@ int raw_read_stdin(void *buf,int siz)
 	{	return read(fileno(stdin),buf,siz);	}
 #endif
 
-#if defined(_WIN32) && defined(STD_OUTPUT_HANDLE)
+#if defined(_WIN32) && defined(STD_OUTPUT_HANDLE) && !defined(OPENSSL_WINAPP)
 int raw_write_stdout(const void *buf,int siz)
 	{
 	DWORD n;

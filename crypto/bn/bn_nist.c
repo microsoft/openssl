@@ -1051,7 +1051,7 @@ int BN_nist_mod_521(BIGNUM *r, const BIGNUM *a, const BIGNUM *field,
 	int	top = a->top, i;
 	BN_ULONG *r_d, *a_d = a->d,
 		 t_d[BN_NIST_521_TOP],
-		 val,tmp,*res;
+		 val, tmp, *res;
 	PTR_SIZE_INT mask;
 	static const BIGNUM _bignum_nist_p_521_sqr = {
 		(BN_ULONG *)_nist_p_521_sqr,

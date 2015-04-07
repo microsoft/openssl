@@ -1,6 +1,6 @@
 :
 eval 'exec perl -S $0 ${1+"$@"}'
-    if $running_under_some_shell;
+	if $running_under_some_shell;
 ##
 ##  Configure -- OpenSSL source tree configuration script
 ##
@@ -525,8 +525,14 @@ my %table=(
 # x86 Win32 target defaults to ANSI API, if you want UNICODE, complement
 # 'perl Configure VC-WIN32' with '-DUNICODE -D_UNICODE'
 "VC-WIN32","cl:-W3 -Gs0 -GF -Gy -nologo -DOPENSSL_SYSNAME_WIN32 -DWIN32_LEAN_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE:::WIN32::BN_LLONG RC4_INDEX EXPORT_VAR_AS_FN ${x86_gcc_opts}:${x86_asm}:win32n:win32",
+# 'perl Configure VC-WINPHONE
+"VC-WINPHONE","cl:-W3 -Gs0 -GF -Gy -nologo -DWIN32_LEAN_AND_MEAN -DWINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP -DOPENSSL_NO_ASM -DOPENSSL_NO_INLINE_ASM -DOPENSSL_WINAPP -FIsdkddkver.h -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE:::WIN32::BN_LLONG RC4_INDEX EXPORT_VAR_AS_FN ${x86_gcc_opts}:${x86_asm}:win32n:win32",
+# 'perl Configure VC-WINSTORE
+"VC-WINSTORE","cl:-W3 -Gs0 -GF -Gy -nologo -DWIN32_LEAN_AND_MEAN -DWINAPI_FAMILY=WINAPI_FAMILY_PC_APP -DOPENSSL_WINAPP -DOPENSSL_NO_ASM -DOPENSSL_NO_INLINE_ASM -FIsdkddkver.h -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE:::WIN32::BN_LLONG RC4_INDEX EXPORT_VAR_AS_FN ${x86_gcc_opts}:${x86_asm}:win32n:win32",
 # Unified CE target
 "debug-VC-WIN32","cl:-W3 -Gs0 -GF -Gy -Zi -nologo -DOPENSSL_SYSNAME_WIN32 -DWIN32_LEAN_AND_MEAN -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE:::WIN32::BN_LLONG RC4_INDEX EXPORT_VAR_AS_FN ${x86_gcc_opts}:${x86_asm}:win32n:win32",
+"debug-VC-WINPHONE","cl:-W3 -Gs0 -GF -Gy -Zi -nologo -DWIN32_LEAN_AND_MEAN -DWINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP -DOPENSSL_NO_ASM -DOPENSSL_NO_INLINE_ASM -DOPENSSL_WINAPP -FIsdkddkver.h -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE:::WIN32::BN_LLONG RC4_INDEX EXPORT_VAR_AS_FN ${x86_gcc_opts}:${x86_asm}:win32n:win32",
+"debug-VC-WINSTORE","cl:-W3 -Gs0 -GF -Gy -Zi -nologo -DWIN32_LEAN_AND_MEAN -DWINAPI_FAMILY=WINAPI_FAMILY_PC_APP -DOPENSSL_WINAPP -DOPENSSL_NO_ASM -DOPENSSL_NO_INLINE_ASM -FIsdkddkver.h -DL_ENDIAN -D_CRT_SECURE_NO_DEPRECATE:::WIN32::BN_LLONG RC4_INDEX EXPORT_VAR_AS_FN ${x86_gcc_opts}:${x86_asm}:win32n:win32",
 "VC-CE","cl::::WINCE::BN_LLONG RC4_INDEX EXPORT_VAR_AS_FN ${x86_gcc_opts}:${no_asm}:win32",
 
 # Borland C++ 4.5
@@ -620,7 +626,9 @@ my %table=(
 my @MK1MF_Builds=qw(VC-WIN64I VC-WIN64A
 		    debug-VC-WIN64I debug-VC-WIN64A
 		    VC-NT VC-CE VC-WIN32 debug-VC-WIN32
-		    BC-32 
+		    VC-WINSTORE debug-VC-WINSTORE
+		    VC-WINPHONE debug-VC-WINPHONE
+		    BC-32
 		    netware-clib netware-clib-bsdsock
 		    netware-libc netware-libc-bsdsock);
 
@@ -1003,8 +1011,8 @@ if ($fips)
 
 # SSL 3.0 and TLS requires MD5 and SHA and either RSA or DSA+DH
 if (defined($disabled{"md5"}) || defined($disabled{"sha"})
-    || (defined($disabled{"rsa"})
-        && (defined($disabled{"dsa"}) || defined($disabled{"dh"}))))
+	|| (defined($disabled{"rsa"})
+		&& (defined($disabled{"dsa"}) || defined($disabled{"dh"}))))
 	{
 	$disabled{"ssl3"} = "forced";
 	$disabled{"tls1"} = "forced";
@@ -1016,7 +1024,7 @@ if (defined($disabled{"tls1"}))
 	}
 
 if (defined($disabled{"ec"}) || defined($disabled{"dsa"})
-    || defined($disabled{"dh"}))
+	|| defined($disabled{"dh"}))
 	{
 	$disabled{"gost"} = "forced";
 	}
@@ -1148,7 +1156,7 @@ my @fields = split(/\s*:\s*/,$table{$target} . ":" x 30 , -1);
 my $cc = $fields[$idx_cc];
 # Allow environment CC to override compiler...
 if($ENV{CC}) {
-    $cc = $ENV{CC};
+	$cc = $ENV{CC};
 }
 my $cflags = $fields[$idx_cflags];
 my $unistd = $fields[$idx_unistd];
@@ -1593,7 +1601,7 @@ while (<IN>)
 			}
 		}
 	$sdirs = 0 unless /\\$/;
-        s/engines // if (/^DIRS=/ && $disabled{"engine"});
+		s/engines // if (/^DIRS=/ && $disabled{"engine"});
 	s/ccgost// if (/^ENGDIRS=/ && $disabled{"gost"});
 	s/^VERSION=.*/VERSION=$version/;
 	s/^MAJOR=.*/MAJOR=$major/;
@@ -1966,8 +1974,8 @@ LANGUAGE 0x09,0x01
   FILETYPE VFT_DLL
   FILESUBTYPE 0x0L
 BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
 	BLOCK "040904b0"
 	BEGIN
 	    // Required:	    
@@ -1990,11 +1998,11 @@ BEGIN
 	    //VALUE "PrivateBuild", "\\0"
 	    //VALUE "SpecialBuild", "\\0"
 	END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x409, 0x4b0
-    END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x409, 0x4b0
+	END
 END
 EOF
 	close(OUT);
@@ -2030,7 +2038,7 @@ sub usage
 	print STDERR "\npick os/compiler from:\n";
 	my $j=0;
 	my $i;
-        my $k=0;
+		my $k=0;
 	foreach $i (sort keys %table)
 		{
 		next if $i =~ /^debug/;

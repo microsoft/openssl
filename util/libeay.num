@@ -4312,3 +4312,6 @@ BIO_dgram_sctp_wait_for_dry             4679	EXIST::FUNCTION:SCTP
 BIO_s_datagram_sctp                     4680	EXIST::FUNCTION:DGRAM,SCTP
 BIO_dgram_is_sctp                       4681	EXIST::FUNCTION:SCTP
 BIO_dgram_sctp_notification_cb          4682	EXIST::FUNCTION:SCTP
+bn_probable_prime_dh_coprime            4683	NOEXIST::FUNCTION:
+bn_probable_prime_dh                    4684	NOEXIST::FUNCTION:
+bn_probable_prime_dh_retry              4685	NOEXIST::FUNCTION:

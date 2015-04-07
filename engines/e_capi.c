@@ -69,7 +69,9 @@
 #define _WIN32_WINNT 0x0400
 #endif
 
+#if !defined(OPENSSL_WINAPP)
 #include <wincrypt.h>
+#endif
 
 /*
  * This module uses several "new" interfaces, among which is
