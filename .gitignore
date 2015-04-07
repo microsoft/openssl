@@ -91,3 +91,5 @@ ms/ssleay32.def
 lib
 Makefile.save
 *.bak
+tags
+TAGS
