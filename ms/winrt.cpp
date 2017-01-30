@@ -144,7 +144,7 @@ extern "C"
 		return NULL;
 		}
 
-	BOOL WINAPI GetVersionEx(
+	BOOL GetVersionEx(
 							_Inout_  LPOSVERSIONINFO lpVersionInfo
 							)
 		{
@@ -165,11 +165,11 @@ extern "C"
 		{
 		return 0;
 		}
-	int WINAPI GetProcessWindowStation(void)
+	int GetProcessWindowStation(void)
 		{
 		return NULL;
 		}
-	BOOL WINAPI GetUserObjectInformationW(
+	BOOL GetUserObjectInformationW(
 										 _In_       HANDLE hObj,
 										 _In_       int nIndex,
 										 _Out_opt_  PVOID pvInfo,
@@ -180,7 +180,7 @@ extern "C"
 		return 0;
 		}
 #ifndef STD_ERROR_HANDLE
-	int WINAPI GetStdHandle(
+	int GetStdHandle(
 						   _In_  DWORD nStdHandle
 						   )
 		{
@@ -208,7 +208,7 @@ extern "C"
 		{
 		return -1;
 		}
-	void WINAPI GlobalMemoryStatus(
+	void GlobalMemoryStatus(
 								  _Out_  LPMEMORYSTATUS lpBuffer
 								  )
 		{
@@ -279,7 +279,7 @@ extern "C"
 		return 0;
 		}
 
-	BOOL WINAPI FlushConsoleInputBuffer(
+	BOOL FlushConsoleInputBuffer(
 									   _In_  HANDLE hConsoleInput
 									   )
 		{
